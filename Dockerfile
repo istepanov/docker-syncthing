@@ -6,7 +6,7 @@ ENV VERSION v0.10.6
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y git && \
+    apt-get install -y git xmlstarlet && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /go/src/github.com/syncthing && \
@@ -18,9 +18,13 @@ RUN mkdir -p /go/src/github.com/syncthing && \
     mv bin/syncthing /syncthing && \
     rm -rf /go/src/github.com/syncthing
 
+ADD start.sh /start.sh
+RUN chmod +x /start.sh
+
 RUN useradd -m syncthing
+WORKDIR /home/syncthing
 USER syncthing
 
 EXPOSE 8080 22000 21025/udp
 
-CMD ["/syncthing"]
+CMD ["/start.sh"]
