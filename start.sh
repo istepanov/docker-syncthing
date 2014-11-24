@@ -1,11 +1,16 @@
 #!/bin/bash
 
-CONFIG_FOLDER='/home/syncthing/.config/syncthing'
+set -e
 
-if [ ! -d "$CONFIG_FOLDER" ]; then
-    mkdir -p "$CONFIG_FOLDER"
+HOME=`eval echo ~syncthing`
+CONFIG_FOLDER="$HOME/.config/syncthing"
+CONFIG_FILE="$CONFIG_FOLDER/config.xml"
+
+if [ ! -f "$CONFIG_FILE" ]; then
     /syncthing -generate="$CONFIG_FOLDER"
-    xmlstarlet ed -L -u "/configuration/gui/address" -v "0.0.0.0:8080" "$CONFIG_FOLDER/config.xml"
+    xmlstarlet ed -L -u "/configuration/gui/address" -v "0.0.0.0:8080" "$CONFIG_FILE"
 fi
 
-exec /syncthing
+chown -R syncthing:syncthing "$HOME"
+
+exec su - syncthing -c /syncthing

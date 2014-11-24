@@ -23,7 +23,8 @@ RUN chmod +x /start.sh
 
 RUN useradd -m syncthing
 WORKDIR /home/syncthing
-USER syncthing
+
+VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
 
 EXPOSE 8080 22000 21025/udp
 
