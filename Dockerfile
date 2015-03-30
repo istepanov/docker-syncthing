@@ -1,7 +1,7 @@
 FROM golang
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
-ENV VERSION v0.10.29
+ENV VERSION v0.10.30
 
 ENV DEBIAN_FRONTEND noninteractive
 
