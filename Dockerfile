@@ -28,6 +28,6 @@ WORKDIR /home/syncthing
 
 VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
 
-EXPOSE 8080 22000 21025/udp
+EXPOSE 8384 22000 21025/udp
 
 CMD ["/start.sh"]
