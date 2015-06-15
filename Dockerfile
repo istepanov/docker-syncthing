@@ -9,21 +9,21 @@ RUN apt-get update && \
     apt-get install -y git xmlstarlet && \
     rm -rf /var/lib/apt/lists/*
 
+RUN useradd -m syncthing
+
 RUN mkdir -p /go/src/github.com/syncthing && \
     cd /go/src/github.com/syncthing && \
     git clone https://github.com/syncthing/syncthing.git && \
     cd syncthing && \
     git checkout $VERSION && \
     go run build.go && \
-    mv bin/syncthing /syncthing && \
+    mv bin/syncthing /home/syncthing/syncthing && \
+    chown syncthing:syncthing /home/syncthing/syncthing && \
     rm -rf /go/src/github.com/syncthing
 
 ADD start.sh /start.sh
 RUN chmod +x /start.sh
 
-RUN useradd -m syncthing && \
-    mv /syncthing /home/syncthing/syncthing && \
-    chown syncthing:syncthing /home/syncthing/syncthing
 WORKDIR /home/syncthing
 
 VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
