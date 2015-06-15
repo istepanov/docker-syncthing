@@ -21,7 +21,9 @@ RUN mkdir -p /go/src/github.com/syncthing && \
 ADD start.sh /start.sh
 RUN chmod +x /start.sh
 
-RUN useradd -m syncthing
+RUN useradd -m syncthing && \
+    mv /syncthing /home/syncthing/syncthing && \
+    chown syncthing:syncthing /home/syncthing/syncthing
 WORKDIR /home/syncthing
 
 VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
