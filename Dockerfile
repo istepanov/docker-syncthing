@@ -1,17 +1,16 @@
-FROM golang:1.4.2
+FROM golang:1.6.2
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
-
-ENV VERSION v0.12.3
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y git xmlstarlet && \
+    apt-get install -y git curl jq xmlstarlet && \
     rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m syncthing
 
-RUN mkdir -p /go/src/github.com/syncthing && \
+RUN VERSION=`curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest | jq -r '.tag_name'` && \
+    mkdir -p /go/src/github.com/syncthing && \
     cd /go/src/github.com/syncthing && \
     git clone https://github.com/syncthing/syncthing.git && \
     cd syncthing && \
