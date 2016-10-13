@@ -1,27 +1,39 @@
-FROM golang:1.6.2
+FROM alpine:3.4
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV GOROOT=/usr/lib/go \
+    GOPATH=/go \
+    PATH=$PATH:$GOROOT/bin:$GOPATH/bin \
+    XMLSTARLET_VERSION=1.6.1-r1
 
-RUN apt-get update && \
-    apt-get install -y git curl jq xmlstarlet && \
-    rm -rf /var/lib/apt/lists/*
+ADD start.sh /start.sh
 
-RUN useradd -m syncthing
+RUN chmod +x /start.sh && \
+    apk add --no-cache libxml2 libxslt && \
+    apk add --no-cache --virtual .build-dependencies curl jq git go ca-certificates && \
+    adduser -D syncthing && \
 
-RUN VERSION=`curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest | jq -r '.tag_name'` && \
+    # compile syncthing
+    VERSION=`curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest | jq -r '.tag_name'` && \
     mkdir -p /go/src/github.com/syncthing && \
     cd /go/src/github.com/syncthing && \
     git clone https://github.com/syncthing/syncthing.git && \
     cd syncthing && \
     git checkout $VERSION && \
     go run build.go && \
-    mv bin/syncthing /home/syncthing/syncthing && \
-    chown syncthing:syncthing /home/syncthing/syncthing && \
-    rm -rf /go/src/github.com/syncthing
+    mkdir -p /go/bin && \
+    mv bin/syncthing /go/bin/syncthing && \
+    chown syncthing:syncthing /go/bin/syncthing && \
 
-ADD start.sh /start.sh
-RUN chmod +x /start.sh
+    # install xmlstarlet (used by start.sh script)
+    curl -sSL -o /tmp/xmlstarlet.apk https://github.com/menski/alpine-pkg-xmlstarlet/releases/download/${XMLSTARLET_VERSION}/xmlstarlet-${XMLSTARLET_VERSION}.apk && \
+    apk add --allow-untrusted /tmp/xmlstarlet.apk && \
+    rm /tmp/xmlstarlet.apk && \
+
+    # cleanup
+    rm -rf /go/pkg && \
+    rm -rf /go/src && \
+    apk del .build-dependencies
 
 WORKDIR /home/syncthing
 
