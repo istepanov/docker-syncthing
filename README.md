@@ -3,6 +3,8 @@ istepanov/syncthing
 
 [Syncthing](http://syncthing.net/) Docker image
 
+[![](https://images.microbadger.com/badges/version/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing "Get your own version badge on microbadger.com")
+
 ### How to run
 
     docker run -d \
