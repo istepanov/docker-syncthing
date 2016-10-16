@@ -6,6 +6,7 @@ istepanov/syncthing
 [![Docker Build](https://img.shields.io/docker/automated/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
 [![Layers](https://images.microbadger.com/badges/image/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
 [![Version](https://images.microbadger.com/badges/version/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
+[![Join the chat at https://gitter.im/istepanov/docker-syncthing](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/istepanov/docker-syncthing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [Syncthing](http://syncthing.net/) Docker image
 
