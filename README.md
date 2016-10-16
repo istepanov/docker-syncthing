@@ -1,9 +1,13 @@
 istepanov/syncthing
 ===================
 
-[Syncthing](http://syncthing.net/) Docker image
+[![Docker Stars](https://img.shields.io/docker/stars/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
+[![Docker Build](https://img.shields.io/docker/automated/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
+[![Layers](https://images.microbadger.com/badges/image/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
+[![Version](https://images.microbadger.com/badges/version/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
 
-[![](https://images.microbadger.com/badges/version/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing "Get your own version badge on microbadger.com")
+[Syncthing](http://syncthing.net/) Docker image
 
 ### How to run
 
