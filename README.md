@@ -12,12 +12,19 @@ istepanov/syncthing
 
 ### How to run
 
+    # Container requires 2 volumes: for config and for data.
+    CONFIG_VOLUME='syncthing-config'
+    DATA_VOLUME='syncthing-data'
+    CONTAINER_NAME='syncthing'
+
     docker run -d \
-        --name syncthing \
+        --name $CONTAINER_NAME \
         --restart always \
         -p 8384:8384 -p 22000:22000 -p 21027:21027/udp \
-        -v /opt/docker/syncthing/config:/home/syncthing/.config/syncthing \
-        -v /opt/docker/syncthing/Sync:/home/syncthing/Sync \
+        -v $CONFIG_VOLUME:/home/syncthing/.config/syncthing \
+        -v $DATA_VOLUME:/home/syncthing/Sync \
         istepanov/syncthing
 
 Then access Syncthing Web UI at [http://localhost:8384/]()
+
+_Note_: `--restart always` (or `--restart on-failure` or `--restart unless-stopped`) is required because Syncthing restarts itself during auto-update. Without this option container just stops after first update.
