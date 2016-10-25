@@ -12,6 +12,20 @@ istepanov/syncthing
 
 ### How to run
 
+Simpliest way to run this container is by using [docker-compose.yml](docker-compose.yml) file. Simply run:
+
+    wget https://raw.githubusercontent.com/istepanov/docker-syncthing/master/docker-compose.yml
+    docker-compose up -d
+
+Then access Syncthing Web UI at [http://localhost:8384/]().
+
+To update image, run:
+
+    docker-compose pull
+    docker-compose up -d
+
+You can also start the container manually without using Docker Compose:
+
     # Container requires 2 volumes: for config and for data.
     CONFIG_VOLUME='syncthing-config'
     DATA_VOLUME='syncthing-data'
@@ -24,7 +38,5 @@ istepanov/syncthing
         -v $CONFIG_VOLUME:/home/syncthing/.config/syncthing \
         -v $DATA_VOLUME:/home/syncthing/Sync \
         istepanov/syncthing
-
-Then access Syncthing Web UI at [http://localhost:8384/]()
 
 _Note_: `--restart always` (or `--restart on-failure` or `--restart unless-stopped`) is required because Syncthing restarts itself during auto-update. Without this option container just stops after first update.

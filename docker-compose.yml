@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  syncthing:
+    image: istepanov/syncthing
+    restart: always
+    ports:
+      - "8384:8384"
+      - "22000:22000"
+      - "21027:21027/udp"
+    volumes:
+      - "config:/home/syncthing/.config/syncthing"
+      - "data:/home/syncthing/Sync"
+
+volumes:
+  config:
+    driver: local
+  data:
+    driver: local
