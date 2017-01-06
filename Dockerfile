@@ -23,7 +23,7 @@ RUN chmod +x /start.sh && \
     go run build.go && \
     mkdir -p /go/bin && \
     mv bin/syncthing /go/bin/syncthing && \
-    chown syncthing:syncthing /go/bin/syncthing && \
+    chown syncthing:syncthing /go/bin -R && \
 
     # install xmlstarlet (used by start.sh script)
     curl -sSL -o /tmp/xmlstarlet.apk https://github.com/menski/alpine-pkg-xmlstarlet/releases/download/${XMLSTARLET_VERSION}/xmlstarlet-${XMLSTARLET_VERSION}.apk && \
